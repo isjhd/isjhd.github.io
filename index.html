@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轻音少女</title>
+    <link rel="stylesheet" href="index.css">
+
+    <!--看板娘-->
+    <script src="js/L2Dwidget.0.min.js"></script>
+	  <script src="js/L2Dwidget.min.js"></script>
+    <!--看板娘-->
+
+</head>
+<body>
+    <div class="tou"><!--头部盒子-->
+      <div class="left1"><!--左边的第一个盒子-->
+        <a href="https://www.axutongxue.com/" target="_blank"><img src="images/56.png"></a>
+      </div>
+      <div class="dao w"><!--导航栏-->
+        <div class="left2"><!--左边的第二个盒子-->
+          <img src="images/34.gif">
+        </div>
+        <ul class="left3"><!--左边的第三个盒子-->
+          <li><a href="#tou" class="zero">网站首页</a></li>
+          <li><a href="#he2">精彩片段</a></li>
+          <li><a href="#he3">内容简介</a></li>
+          <li><a href="#he4">关于我们</a></li>
+        </ul>
+        <div class="right1"><!--右边的第一个盒子-->
+          <img src="images/40.gif">
+        </div>
+      </div>
+    </div>
+
+    <div class="he" id="tou"><!--一个空盒子--></div>
+
+    <!--轮播窗效果-->  
+    <div id="wrap">
+          <!-- 图片列表 -->
+          <div class="img-list">
+            <img src="images/1.jpg" />
+            <img src="images/5.png" />
+            <img src="images/8.jpg" />
+            <img src="images/4.jpg" />
+            <img src="images/3.jpg" />
+          </div>
+      
+          <!-- 小箭头 -->
+          <div class="arrow">
+            <a href="javascript:;" class="left">&lt;</a>
+            <a href="javascript:;" class="right">&gt;</a>
+          </div>
+      
+          <!-- 小圆点 -->
+          <ul class="circle-list">
+            <li class="circle active" data-n="0"></li>
+            <li class="circle" data-n="1"></li>
+            <li class="circle" data-n="2"></li>
+            <li class="circle" data-n="3"></li>
+            <li class="circle" data-n="4"></li>
+          </ul>
+    </div>
+      
+    <script>
+          // 获取左右按钮和图片列表
+          let oLeft = document.querySelector(".left");
+          let oRight = document.querySelector(".right");
+          let oImgList = document.querySelector(".img-list");
+      
+          // 克隆第一张图片
+          let clonefirstImg = oImgList.firstElementChild.cloneNode();
+          // 将第一张图片添加至图片列表的末尾
+          oImgList.appendChild(clonefirstImg);
+      
+          // 图片索引 代表当前是第几张图片  index:0代表第一张图片
+          let index = 0;
+      
+          // 设置函数节流锁
+          let lock = true;
+          function handleRightBtn() {
+            if (!lock) return;
+            index++;
+            oImgList.style.left = index * -1263 + "px";
+            // 为什么要加过渡? 因为切换到了最后一张假图时会将过渡去掉
+            oImgList.style.transition = "0.5s ease";
+      
+            if (index === 5) {
+              index = 0;
+              setTimeout(() => {
+                oImgList.style.left = 0;
+                // 取消过渡 500毫秒之后切换第一张
+                oImgList.style.transition = "none";
+              }, 500);
+            }
+      
+            // 设置小圆点的高亮
+            setCircles();
+            // 关锁
+            lock = false;
+            setTimeout(() => {
+              lock = true;
+            }, 500);
+          }
+      
+          // 右按钮的实现
+          oRight.addEventListener("click", handleRightBtn);
+      
+          // 左按钮的实现  瞬间切换到假图然后拉到真实最后一张图片
+          oLeft.addEventListener("click", () => {
+            if (!lock) return;
+            index--;
+            if (index === -1) {
+              oImgList.style.left = 5 * -1263 + "px";
+              oImgList.style.transition = "none";
+              index = 4;
+              setTimeout(() => {
+                oImgList.style.left = index * -1263 + "px";
+                oImgList.style.transition = "0.5s ease";
+              }, 0);
+            } else {
+              oImgList.style.left = index * -1263 + "px";
+            }
+      
+            // 设置小圆点的高亮
+            setCircles();
+      
+            lock = false;
+            setTimeout(() => {
+              lock = true;
+            }, 500);
+          });
+      
+          // 获取五个小圆点
+          const circles = document.querySelectorAll(".circle");
+      
+          // 小圆点高亮的显示
+          function setCircles() {
+            for (let i = 0; i < circles.length; i++) {
+              if (i === index) {
+                circles[i].classList.add("active");
+              } else {
+                circles[i].classList.remove("active");
+              }
+            }
+          }
+      
+          // 小圆点点击切换图片 使用事件代理
+          const oCircle = document.querySelector(".circle-list");
+          oCircle.addEventListener("click", (e) => {
+            // 当我点击小圆点的时候
+            if (e.target.nodeName.toLowerCase() === "li") {
+              // 当前元素的data-n对应得值 和index一一对应
+              const n = Number(e.target.getAttribute("data-n"));
+              index = n;
+              setCircles();
+              oImgList.style.transition = "0.5s ease";
+              oImgList.style.left = index * -1263 + "px";
+            }
+          });
+      
+          // 自动轮播
+          let autoplay = setInterval(handleRightBtn, 2000);
+          const oWrap = document.getElementById("wrap");
+          // 移入停止轮播
+          oWrap.addEventListener("mouseenter", () => {
+            clearInterval(autoplay);
+          });
+          // 移出继续轮播
+          oWrap.addEventListener("mouseleave", () => {
+            // 设表先关
+            clearInterval(autoplay);
+            autoplay = setInterval(handleRightBtn, 2000);
+          });
+
+          // 网页鼠标点击特效（爱心）
+          ! function (e, t, a) {
+            function r() {
+                for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[
+                        e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x +
+                    "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e]
+                    .scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+                requestAnimationFrame(r)
+            }
+ 
+            function n() {
+                var t = "function" == typeof e.onclick && e.onclick;
+                e.onclick = function (e) {
+                    t && t(), o(e)
+                }
+            }
+ 
+            function o(e) {
+                var a = t.createElement("div");
+                a.className = "heart", s.push({
+                    el: a,
+                    x: e.clientX - 5,
+                    y: e.clientY - 5,
+                    scale: 1,
+                    alpha: 1,
+                    color: c()
+                }), t.body.appendChild(a)
+            }
+ 
+            function i(e) {
+                var a = t.createElement("style");
+                a.type = "text/css";
+                try {
+                    a.appendChild(t.createTextNode(e))
+                } catch (t) {
+                    a.styleSheet.cssText = e
+                }
+                t.getElementsByTagName("head")[0].appendChild(a)
+            }
+ 
+            function c() {
+                return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math
+                    .random()) + ")"
+            }
+            var s = [];
+            e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e
+                .mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+                    setTimeout(e, 1e3 / 60)
+                }, i(
+                    ".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"
+                ), n(), r()
+        }(window, document);
+        // 网页鼠标点击特效（爱心）
+
+
+        //蜘蛛网特效
+        !function () {
+        function n(n, e, t) {
+            return n.getAttribute(e) || t
+        }
+    
+        function e(n) {
+            return document.getElementsByTagName(n)
+        }
+    
+        function t() {
+            var t = e("script"), o = t.length, i = t[o - 1];
+            return {l: o, z: n(i, "zIndex", -1), o: n(i, "opacity", .5), c: n(i, "color", "0,0,0"), n: n(i, "count", 99)}
+        }
+    
+        function o() {
+            a = m.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, c = m.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+        }
+    
+        function i() {
+            r.clearRect(0, 0, a, c);
+            var n, e, t, o, m, l;
+            s.forEach(function (i, x) {
+                for (i.x += i.xa, i.y += i.ya, i.xa *= i.x > a || i.x < 0 ? -1 : 1, i.ya *= i.y > c || i.y < 0 ? -1 : 1, r.fillRect(i.x - .5, i.y - .5, 1, 1), e = x + 1; e < u.length; e++) n = u[e], null !== n.x && null !== n.y && (o = i.x - n.x, m = i.y - n.y, l = o * o + m * m, l < n.max && (n === y && l >= n.max / 2 && (i.x -= .03 * o, i.y -= .03 * m), t = (n.max - l) / n.max, r.beginPath(), r.lineWidth = t / 2, r.strokeStyle = "rgba(" + d.c + "," + (t + .2) + ")", r.moveTo(i.x, i.y), r.lineTo(n.x, n.y), r.stroke()))
+            }), x(i)
+        }
+    
+        var a, c, u, m = document.createElement("canvas"), d = t(), l = "c_n" + d.l, r = m.getContext("2d"),
+            x = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (n) {
+                window.setTimeout(n, 1e3 / 45)
+            }, w = Math.random, y = {x: null, y: null, max: 2e4};
+        m.id = l, m.style.cssText = "position:fixed;top:0;left:0;z-index:" + d.z + ";opacity:" + d.o, e("body")[0].appendChild(m), o(), window.onresize = o, window.onmousemove = function (n) {
+            n = n || window.event, y.x = n.clientX, y.y = n.clientY
+        }, window.onmouseout = function () {
+            y.x = null, y.y = null
+        };
+        for (var s = [], f = 0; d.n > f; f++) {
+            var h = w() * a, g = w() * c, v = 2 * w() - 1, p = 2 * w() - 1;
+            s.push({x: h, y: g, xa: v, ya: p, max: 6e3})
+        }
+        u = s.concat([y]), setTimeout(function () {
+            i()
+        }, 100)
+        }();
+         //蜘蛛网特效
+
+        //看板娘
+        L2Dwidget.init({
+          display: {
+            superSample: 2,
+            width: 150,
+            height: 330,
+            position: "right",
+            hOffset: 0,
+            vOffset: 0,
+          },
+        });
+        //看板娘
+
+    </script>
+    <!--轮播图效果-->
+
+    <!--一张图片-->
+    <div class="picture w">
+      <div class="zi">
+        <h1>轻音少女</h1>
+        <h6>——K-ON!——</h6>
+      </div>
+    </div>
+    <!--一张图片-->
+
+    <!--百叶窗-->
+    <ul class="main w">
+      <li><img src="images/7.jpg" alt=""></li>
+      <li><img src="images/6.jpg" alt=""></li>
+      <li><img src="images/15.jpg" alt=""></li>
+      <li><img src="images/16.jpg" alt=""></li>
+      <li><img src="images/17.jpg" alt=""></li>
+      <li><a href="彩蛋.html" target="_blank"><img src="images/18.jpg" alt=""></a></li>
+    </ul>
+    <!--百叶窗-->
+
+    <!--第二个页面-->
+    <div class="he2" id="he2"></div>
+    <div class="fragment">究 竟 是 哪 一 个 片 段 吸 引 到 了 你 呢 ?</div>
+    <div class="page2">
+      <ul>
+        <li>
+          <!--第一个视频-->
+          <a href="https://www.bilibili.com/video/BV1VK4y1h7yM" target="_blank">
+            <div class="video1">02:29</div>
+            <p>【轻音少女】 欢乐五萌，可爱吗？智商换的...</p>
+          </a>
+        </li>
+
+        <li>
+          <!--第二个视频-->
+          <a href="https://www.bilibili.com/video/BV15B4y1Y7ia" target="_blank">
+            <div class="video2">01:12</div>
+            <p>【轻音少女】 每天的快乐源泉！</p>
+          </a>
+        </li>
+
+        <li>
+          <!--第三个视频-->
+          <a href="https://www.bilibili.com/video/BV1YA411X7e4" target="_blank">
+            <div class="video3">00:53</div>
+            <p>【轻音少女】JO粉和轻音粉都蚌埠住了</p>
+          </a>
+        </li>
+
+        <li class="no1">
+          <!--第四个视频-->
+          <a href="https://www.bilibili.com/video/BV1B4411j76x" target="_blank">
+            <div class="video4">01:37</div>
+            <p>【轻音少女】万恶之源，蓝白碗...</p>
+          </a>
+        </li>
+
+        <li class="no2">
+          <!--第五个视频-->
+          <a href="https://www.bilibili.com/video/BV1444y1V7BL" target="_blank">
+            <div class="video5">01:43</div>
+            <p>【轻音少女】呆唯从小找的一手好妈</p>
+          </a>
+        </li>
+
+        <li class="no2">
+          <!--第六个视频-->
+          <a href="https://www.bilibili.com/video/BV1Aq4y1r7Ei" target="_blank">
+            <div class="video6">01:27</div>
+            <p>【轻音少女】呆唯的唤醒方式</p>
+          </a>
+        </li>
+
+        <li class="no2">
+          <!--第七个视频-->
+          <a href="https://www.bilibili.com/video/BV1rd4y1e72Y" target="_blank">
+            <div class="video7">02:18</div>
+            <p>【轻音少女】马拉松大会的终极动力是什么</p>
+          </a>
+        </li>
+
+        <li class="no1 no2">
+          <!--第八个视频-->
+          <a href="https://www.bilibili.com/video/BV1gV4y1Z7No" target="_blank">
+            <div class="video8">02:42</div>
+            <p>【轻音少女】《相遇天使》</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!--第二个页面-->
+
+    <!--第三个页面-->
+    <div class="he3" id="he3"></div>
+    <div class="test">这 究 竟 是 什 么 样 的 一 部 动 漫 呢 ?</div>
+    <div class="page3">
+      <ul class="lesson">
+        <li class="lesson1">
+          <a href="https://www.freeok.vip/voddetail/9179.html" target="_blank">
+            <img src="images/54.jpg"/>
+            <p>第一季</p>
+          </a>
+        </li>
+        <li class="lesson2">
+          <a href="https://www.freeok.vip/voddetail/8983.html" target="_blank">
+            <img src="images/56.jpg"/>
+            <p>第二季</p>
+          </a>
+        </li>
+        <li class="lesson3">
+          <a href="https://www.freeok.vip/voddetail/52108.html" target="_blank">
+            <img src="images/55.jpg"/>
+            <p>剧场版</p>
+          </a>
+        </li>
+      </ul>
+      <div class="introduction">
+        <p>《轻音少女第一季》改编自Kakifly创作的同名四格漫画, 于2009年4月2日开播。 
+          作品由山田尚子执导, 京都动画负责动画制作, 描绘了在轻音乐部进行乐队活动的女高中生们悠闲的日常。</p>
+        <p>《轻音少女第二季》剧情紧接第一季动画剧情展开, 讲述的是平泽唯等四人从升入高三到毕业这一年间和高二部员中野梓的日常温馨生活。</p>
+        <p>《轻音少女剧场版》是同名动画系列的剧场版作品。以轻音部5人前往伦敦的毕业旅行为主题。</p>
+      </div>
+
+      <!--评论-->
+      <p class="pingLun">评论</p>
+      <div class="grid-wrapper"><!--评论(瀑布流布局)-->
+        <div><!--1--><img src="images/115-.png"/></div>
+        <div><!--2--><img src="images/95-.png"/></div>
+        <div><!--3--><img src="images/112-.png"/></div>
+        <div><!--4--><img src="images/94-.png"/></div>
+        <div><!--5--><img src="images/110-.png"/></div>
+        <div><!--6--><img src="images/111-.png"/></div>
+        <div><!--7--><img src="images/104-.png"/></div>
+        <div><!--8--><img src="images/107-.png"/></div>
+        <div><!--9--><img src="images/102-.png"/></div>
+        <div><!--10--><img src="images/101-.png"/></div>
+        <div><!--11--><img src="images/92-.png"/></div>
+        <div><!--12--><img src="images/114-.png"/></div>
+        <div><!--13--><img src="images/103-.png"/></div>
+        <div><!--14--><img src="images/89-.png"/></div>
+        <div><!--15--><img src="images/96-.png"/></div>
+        <div><!--16--><img src="images/109-.png"/></div>
+        <div><!--17--><img src="images/97-.png"/></div>
+        <div><!--18--><img src="images/116.gif"/></div>
+        <div><!--19--><img src="images/99-.png"/></div>
+        <div><!--20--><img src="images/93-.png"/></div>
+        <div><!--21--><img src="images/100-.png"/></div>
+        <div><!--22--><img src="images/106-.png"/></div>
+        <div><!--23--><img src="images/88-.png"/></div>
+        <div><!--24--><img src="images/90-.png"/></div>
+        <div><!--25--><img src="images/108-.png"/></div>
+        <div><!--26--><img src="images/113-.png"/></div>
+        <div><!--27--><img src="images/87-.png"/></div>
+        <div><!--28--><img src="images/105-.png"/></div>
+        <div><!--29--><img src="images/91-.png"/></div>
+        <div><!--30--><img src="images/98-.png"/></div>
+      </div>
+      <!--评论-->
+
+    <!--第三个页面-->
+
+    <!--第四个页面-->
+    <div class="he4" id="he4"><!--一个盒子--></div>
+
+    <div class="page4">
+      <div class="account"><!--个人介绍-->
+        <a href="https://b23.tv/7HVofTb" target="_blank"><img src="images/119.jpg" class="one"></a>
+        <h3>sofirj</h3>
+        <div class="coin">
+          <span class="ying">硬币: </span><span class="shu">227.6</span>
+          <span class="ying">B币: </span><span class="shu">0</span>
+        </div>
+        <ul class="grade">
+          <li class="progress1">Lv5</li>
+          <li class="progress2"></li>
+          <li class="progress3"></li>
+          <li class="progress4">Lv6</li>
+        </ul>
+        <p>当前成长12479, 距离升级Lv.6 还需要16321</p>
+        <ul class="fans1">
+          <li class="guan">34</li>
+          <li>3</li>
+          <li class="tai">9</li>
+        </ul>
+        <ul class="fans2">
+          <li class="guan">关注</li>
+          <li class="fen">粉丝</li>
+          <li class="tai">动态</li>
+        </ul>
+      </div>
+      
+      <div class="middle"><!--间隔--></div>
+
+      <div class="other">
+        <div class="responsible"><!--前端/设计/测试/剪辑-->
+          <p>前端 / 设计 / 测试 / 剪辑 </p>
+          <a id="cool" href="https://b23.tv/7HVofTb" target="_blank">BiliBili: &nbsp;sofirj</a>
+        </div>
+        <div class="experience"><!--下面-->   
+          <div class="shi"><!--明日之丈-->
+            <video controls class="videoItem" autoplay="autoplay" loop="loop" muted>
+              <source src="images/126.mp4" type="video/mp4">
+            </video>
+            <div>不断燃烧，直至燃烧殆尽，化为白色的灰。———《明日之丈》</div>
+          </div>
+          <div class="triple"><!--一键三连-->
+            <div>
+              <a href="https://www.bilibili.com/video/BV1Ko4y1T7Ca" target="_blank">
+                <img src="images/123.png">
+                <p>一键三连</p>
+              </a>
+            </div>
+            <div>
+              <a href="https://www.bilibili.com/video/BV1sv4y1K7Az" target="_blank">
+                <img src="images/125.png">
+                <p>白嫖来这</p>
+              </a>
+            </div>
+            <div>
+              <a href="联系我们.html" target="_blank">
+                <img src="images/124.png">
+                <p>联系我们</p>
+              </a>
+            </div>
+            <div>
+              <a href="#">
+                <img src="images/127.png">
+                <p>GitHup</p>   
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--第四个页面-->
+</body>
+</html>

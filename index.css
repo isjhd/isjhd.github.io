@@ -1,0 +1,821 @@
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+html {/*页面滚动条滑动*/
+    scroll-behavior: smooth;
+}
+
+#live2dcanvas {
+    border: 0 !important;
+}
+
+.w {
+    width: 900px;
+    margin: auto;
+}
+
+body {
+    background-color: #ccbbd2;
+}
+
+/*头部盒子-->*/
+.tou {
+    background-color: #ccbbd2;
+    width: 1263px;
+    height: 50px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    margin: auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08);
+}
+
+    /*左边的第一个盒子-->*/
+    .tou .left1 {
+        height: 50px;
+        float: left;   
+        background-color: #fff;
+    }
+    .tou .left1 a {
+        display: block;
+        width: 181.5px;
+        height: 50px;
+    }
+
+    .tou .left1 a img{ 
+        margin-left: 20px;
+        height: 50px;
+    }
+    /*<--左边的第一个盒子*/
+
+    .tou .dao {
+        height: 50px;
+    }
+
+    /*左边的第二个盒子-->*/
+    .tou .dao .left2 {
+        float: left;
+        height: 50px;
+        margin-right: 30px;
+    }
+    .tou .dao .left2 img {
+        height: 50px;
+    }
+    /*左边的第二个盒子-->*/
+
+    /*左边的第三个盒子-->*/
+    .tou .dao .left3 {
+        float: left;
+        height: 50px;
+    }
+    .tou .dao .left3 li {
+        float: left;
+    }
+    .tou .dao .left3 li a {
+        display: block;
+        height: 50px;
+        width: 100px;
+        text-align: center;
+        line-height: 45px;
+        /* color: rgba(26, 18, 101); */
+        font-size: 14px;
+        margin: 0 10px;
+        color: #fff;
+    }
+    .tou .dao .left3 li a:hover {
+        background-color: #7060eb;
+        border-radius: 5px;
+        transition: all 0.5s linear;
+    }
+    .tou .dao .left3 li .zero {
+        color: #7060eb;
+    }
+    .tou .dao .left3 li .zero:hover {
+        color: #fff;
+    }
+    /*<--左边的第三个盒子*/
+
+    /*右边的第一个盒子-->*/
+    .tou .dao .right1 {
+        float: right;
+        height: 50px;
+        margin-right: 20px;
+    }
+    .tou .dao .right1 img {
+        height: 50px;
+    }
+    /*<--右边的第一个盒子*/
+/*<--头部盒子*/
+
+/*一个空盒子*/
+.he {
+    width: 1263px;
+    height: 50px;
+    margin: auto;
+}
+/*一个空盒子*/
+
+/*轮播图效果-->*/
+#wrap {
+    overflow: hidden;
+    position: relative;
+    width: 1263px;
+    height: 580px;
+    border-radius: 8px;
+    margin: auto;
+}
+    
+#wrap .img-list {
+    display: flex;
+    position: relative;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    transition: 1s ease;
+}
+    
+#wrap .img-list img {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    object-fit: cover;
+    cursor: pointer;
+}
+    
+#wrap a {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: block;
+    width: 40px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    user-select: none;
+    font-size: 20px;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
+    border-radius: 8px;
+}
+    
+#wrap a:hover {
+    background-color: rgba(255,255,255,0.5);
+}
+#wrap a.left {
+    left: 0;
+}
+    
+#wrap a.right {
+    right: 0;
+}
+    
+.circle-list {
+    display: flex;
+    position: absolute;
+    bottom: 20px;
+    left: 55%;
+    transform: translate(-50%, 0);
+    width: 240px;
+    height: 40px;
+    z-index: 8;
+}
+.circle-list > .circle {
+    margin: 0 5px;
+    width: 20px;
+    height: 20px;
+    background-color: #ecf0f1;
+    border-radius: 50%;
+}
+    
+.circle-list > .circle.active {
+    background-color: #e74c3c;
+}
+/*<--轮播图效果*/
+
+/*一张图片*/
+.picture {
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: 300px;
+    background-image: url(images/13.jpg);
+    background-position: center;
+    background-size: 900px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+} 
+.picture .zi {
+    height: 300px;
+    text-align: center;
+    background-color:rgba(0, 0, 0, 0.5);
+    color: #fff;
+}
+.picture .zi h1 {
+    font-family: "STXingkai";
+    font-size: 45px;
+    padding-top: 150px;
+}
+.picture .zi h6 {
+    font-size: 14px;
+}
+/*一张图片*/
+
+/*百叶窗*/
+.main {
+    background-color: #fff;
+    height: 320px;
+    overflow: hidden;
+}
+.main li{
+    width: 120px;
+    float: left;
+    border-left: 1px solid #fff;
+    transition: all 1s;
+}
+
+.main:hover li{
+    width: 60px;
+}
+
+.main li:hover {
+    width: 593px;
+}
+
+.main li img {
+    width: 900px;
+    height: 320px;
+    object-fit: cover;
+}
+/*百叶窗*/
+
+/*第二个页面*/
+.he2 {
+    width: 1263px;
+    height: 50px;
+    margin: auto;
+}
+
+.fragment {
+    width: 1263px;
+    height: 60px;
+    font-size: 30px;
+    font-family: "STHupo";
+    color: black;
+    text-align: center;
+    line-height: 45px;
+    margin: auto;
+}
+
+.page2 {
+    margin: auto;
+    width: 1263px;
+}
+
+.page2 ul {
+    width: 1060px;
+    margin: auto;
+    height: 470px;
+}
+
+.page2 ul li {
+    width: 250px;
+    height: 200px;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 60px;
+    border-radius: 8px;
+}
+
+/*消除多余的空格*/
+.page2 ul .no1 {
+    margin-right: 0;
+}
+.page2 ul .no2 {
+    margin-bottom: 0;
+}
+/*消除多余的空格*/
+
+.page2 ul li a {
+    float: left;
+    width: 250px;
+    height: 200px;
+    border-radius: 8px;
+
+    /*图片放大*/
+    transition: all 0.2s linear;
+     /*图片放大*/
+
+    /*实现内部阴影*/
+    box-shadow: inset 0px 0px 10px 0px rgb(0, 0, 0, 0.6);
+    /*实现内部阴影*/
+}
+
+.page2 ul li a:hover {
+    /*图片放大*/
+    transform: scale(1.1);
+    transition: all 0.2s linear;
+    /*图片放大*/
+}
+
+.page2 ul li a div {
+    width: 240px;
+    height: 150px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    text-align: right;
+    line-height: 270px;
+    font-size: 14px;
+    color: #fff;
+    padding-right: 10px;
+    transition: all 0.2s;
+
+    /*前端背景图片自适应屏幕大小*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-position: center 0;
+    /*前端背景图片自适应屏幕大小*/
+
+    /*实现内部阴影*/
+    position: relative;
+    z-index: -1000;
+    vertical-align: top;
+    /*实现内部阴影*/
+}
+
+.page2 ul li:hover a div {
+    color:rgb(255, 2555, 255, 0.0)
+}
+
+/*第一个视频*/
+.page2 ul li a .video1 {
+    background-image: url(images/79.png);
+}
+/*第一个视频*/
+
+/*第二个视频*/
+.page2 ul li a .video2 {
+    background-image: url(images/64.png);
+}
+/*第二个视频*/
+
+/*第三个视频*/
+.page2 ul li a .video3 {
+    background-image: url(images/67.png);
+}
+/*第三个视频*/
+
+/*第四个视频*/
+.page2 ul li a .video4 {
+    background-image: url(images/80.png);
+}
+/*第四个视频*/
+
+/*第五个视频*/
+.page2 ul li a .video5 {
+    background-image: url(images/81.png);
+}
+/*第五个视频*/
+
+/*第六个视频*/
+.page2 ul li a .video6 {
+    background-image: url(images/84.png);
+}
+/*第六个视频*/
+
+/*第七个视频*/
+.page2 ul li a .video7 {
+    background-image: url(images/85.png);
+}
+/*第七个视频*/
+
+/*第八个视频*/
+.page2 ul li a .video8 {
+    background-image: url(images/86.png);
+}
+/*第八个视频*/
+
+.page2 ul li a p {
+    width: 250px;
+    height: 50px;
+    padding-top: 10px;
+    color:rgba(0, 0, 0, 1);
+    font-size: 14px;
+    background-color: #fff;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.page2 ul li a p:hover {
+    color: #7060eb;
+}
+/*第二个页面*/
+
+/*第三个页面*/
+.he3 {
+    width: 1263px;
+    height: 50px;
+}
+
+.test {
+    width: 900px;
+    height: 60px;
+    font-size: 30px;
+    font-family: "STHupo";
+    color: black;
+    text-align: center;
+    line-height: 45px;
+    margin: auto;
+}
+
+.page3 {
+    margin: auto;
+    width: 1263px;
+}
+
+.page3 .lesson {
+    width: 900px;
+    height: 240px;
+    margin: auto;
+}
+
+.page3 .lesson li {
+    float: left;
+
+     /*图片放大*/
+     transition: all 0.2s linear;
+     /*图片放大*/
+}
+
+.page3 .lesson li:hover {
+    /*图片放大*/
+    transform: scale(1.1);
+    transition: all 0.2s linear;
+    /*图片放大*/
+}
+
+.page3 .lesson li a img {
+    border-radius: 8px;
+    height: 200px;
+}
+
+.page3 .lesson li a p{
+    color: black;
+    text-align: center;
+    font-size: 16px;
+}
+
+.page3 .lesson li a p:hover {
+    color:#7060eb;
+}
+/*第一季*/
+.page3 .lesson .lesson1 {
+    margin-left: 175px;
+    margin-right: 50px;
+}
+
+/*第一季*/
+
+/*第二季*/
+.page3 .lesson .lesson2 {
+    margin-right: 50px;
+}
+/*第二季*/
+
+/*第三季*/
+
+/*第三季*/
+
+.page3 .introduction{
+    width: 1060px;
+    color: black;
+    margin: auto;
+    font-size: 20px;
+    text-indent: 2em;
+    line-height: 35px;
+}
+
+/*评论*/
+.pingLun {
+    width: 1263px;
+    margin: auto;
+    height: 20px;
+    background-color: #7060eb;
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+}
+.grid-wrapper {
+    width: 1263px;
+    margin: auto;
+}
+.grid-wrapper  div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    display: inline-block;
+    margin: 3px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+.grid-wrapper  div  img {
+    width: 411px;
+    vertical-align: middle;
+	border-radius: 5px;
+}
+
+/*评论*/
+
+/*第三个页面*/
+
+/*第四个页面*/
+
+/*一个盒子*/
+.he4 {
+    width: 1263px;
+    height: 50px;
+    margin: auto;
+}
+/*一个盒子*/
+
+
+.page4 {
+    width: 1263px;
+    height: 335px;
+    background-color: #7060eb;
+    margin: auto;
+    overflow: hidden;
+}
+
+/*个人介绍*/
+.page4 .account {
+    float: left;
+    width: 300px;
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+.page4 .account a {
+    display: block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: auto;
+    border: 1px solid #fff;
+
+    /*图片放大*/
+    transition: all 0.2s linear;
+    /*图片放大*/
+}
+
+.page4 .account a:hover {
+    /*图片放大*/
+    transform: scale(1.1);
+    transition: all 0.2s linear;
+    /*图片放大*/
+}
+
+.page4 .account a .one {
+    height: 100px;    
+    border-radius: 50%; 
+}
+
+.page4 .account h3 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: normal;
+    color: black;
+    margin: 5px 0;
+}
+
+.page4 .account .coin {
+    text-align: center;
+}
+
+.page4 .account .coin .ying{
+    color: #d2d3ce;
+}
+
+.page4 .account .coin .shu{
+    padding-right: 10px;
+    color: black;
+}
+
+.page4 .account .grade{
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    height: 20px;
+}
+
+.page4 .account .grade li{
+   float: left;
+}
+
+.page4 .account .grade .progress1{
+    background-color: #ee672a;
+    color: #fff;
+    border-radius: 5px;
+    margin-left: 15px;
+}
+
+.page4 .account .grade .progress2{
+    background-color: #f3cb85;
+    width: 80px;
+    height: 2.5px;
+    margin-top: 9px;
+    margin-left: 8px;
+}
+
+.page4 .account .grade .progress3{
+    background-color: #e3e5e7;
+    width: 120px;
+    height: 2.5px;
+    margin-top: 9px;
+    margin-right: 8px;
+}
+
+.page4 .account .grade .progress4{
+    background-color: #c9ccd0;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.page4 .account p{
+    font-size: 12px;
+    padding-left: 15px;
+    color: #cbced1;
+}
+
+.page4 .account .fans1{
+    margin-top: 20px;
+}
+
+.page4 .account .fans1 li{
+    float: left;
+    font-size: 25px;
+    margin-right: 70px;
+}
+
+.page4 .account .fans1 .guan{
+    margin-left: 45px;
+}
+
+.page4 .account .fans1 .tai{
+    margin-right: 45px;
+
+}
+
+.page4 .account .fans2{
+    margin-top: 12px;
+    color: #f3f5f7;
+}
+
+.page4 .account .fans2 li{
+    float: left;
+    font-size: 14px;
+}
+
+.page4 .account .fans2 .guan{
+    margin-left: 45px;
+}
+
+.page4 .account .fans2 .fen{
+    margin-left: 65px;
+}
+
+.page4 .account .fans2 .tai{
+    margin-left: 57px;
+}
+/*个人介绍*/
+
+/*间隔*/
+.page4 .middle {
+    float: left;
+    height: 94%;
+    width: 1px;
+    background-color: #fff;
+    border-radius: 8px; 
+    border: 1px solid #fff;
+    margin: auto 50px;
+    margin-top: 10px;
+}
+/*间隔*/
+
+
+.page4 .other {
+    float: left;
+    width: 800px;
+    height: 300px;
+    /* background-color: pink; */
+}
+
+
+/*前端/设计/测试/剪辑*/
+.page4 .other .responsible {
+    margin-top: 10px;
+    color: #fff;
+    width: 800px;
+    height: 30px;
+    background-color: black;
+    border-radius: 5px;
+}
+
+.page4 .other .responsible p {
+    float: left;
+    height: 30px;
+    line-height: 28px;
+    padding-left: 230px;
+    padding-right: 10px;
+}
+
+.page4 .other .responsible a {
+    float: left;
+    padding-top: 3px;
+
+    background-image: -webkit-linear-gradient(left,#66ffff 10%,#cc00ff 20%,#CC00CC 30%, #CCCCFF 40%, #00FFFF 50%,#CCCCFF 60%,#CC00CC 70%,#CC00FF 80%,#CCCCFF 90%,#66FFFF 100%);/*设置线性渐变*/
+	-webkit-background-clip: text;/* 背景被裁剪到文字 */
+    background-clip: text;
+	-webkit-text-fill-color: transparent;
+
+}
+
+.page4 .other .responsible a:hover {
+    border-bottom: 2px solid #66ffff;
+    transition: all 0.5s linear;
+}
+/*前端/设计/测试/剪辑*/
+
+/*下面*/
+.page4 .other .experience {
+    width: 800px;
+}
+/*下面*/
+
+/*明日之丈*/
+.page4 .other .experience .shi{
+    margin-top: 30px;
+    float: left;
+}
+
+.page4 .other .experience .shi video{
+    width: 300px;
+    border-radius: 8px;
+}
+
+.page4 .other .experience .shi div{
+    width: 300px;
+    font-size: 14px;
+    text-align: center;
+}
+/*明日之丈*/
+
+/*一键三连*/
+.page4 .other .experience .triple{
+    float: left;
+    width: 372px;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.page4 .other .experience .triple div {
+    float: left;
+    margin: 0 30px;
+    margin-bottom: 25px;
+}
+
+.page4 .other .experience .triple div a img {
+    height: 60px;
+    object-fit: cover;
+
+    /*图片放大*/
+    transition: all 0.2s linear;
+    /*图片放大*/
+}
+
+.page4 .other .experience .triple div a img:hover {
+    /*图片放大*/
+    transform: scale(1.2);
+    transition: all 0.3s linear;
+    /*图片放大*/
+}
+
+.page4 .other .experience .triple div a p{
+    padding-top: 10px;
+    color: black;
+}
+
+.page4 .other .experience .triple div a p:hover{
+    color: #66ffff;
+    transition: all 0.5s;
+}
+/*一键三连*/
+
+/*第四个页面*/
